@@ -288,11 +288,101 @@
                 <div class="w-11 h-11 bg-green-500/10 text-green-400 rounded-xl flex items-center justify-center text-xl font-bold">🎮</div>
                 <div>
                   <h3 class="font-bold text-sm text-gray-200">প্লে জোন গেম খেলুন</h3>
-                  <p class="text-[10px] text-gray-400 mt-0.5">গেম খেলে আর্ন বাড়ান • <span class="text-green-400 font-bold">+100 Coins</span></p>
+                  <p class="text-[10px] text-gray-400 mt-0.5">গেম খেলে আর্ন বাড়ান • <span class="text-green-400 font-bold">+50 Coins</span></p>
                 </div>
               </div>
               <button class="bg-green-600 hover:bg-green-700 text-white font-black px-5 py-2.5 rounded-xl text-xs transition shadow-md shadow-green-950/20" onclick="claimReward('miniApp')">Play</button>
             </div>
+            
+    <!-- বোনাস কোড টাস্ক কার্ড -->
+<div class="home-only">
+<div class="card-bg p-5 rounded-3xl mt-6 border border-gray-700/50 shadow-xl bg-gray-900/40" id="promo-task-card">
+    
+    <!-- হেডার অংশ -->
+    <div class="flex items-center space-x-3.5 mb-5">
+        <div class="w-11 h-11 bg-green-500/10 text-green-400 rounded-xl flex items-center justify-center text-xl font-bold">🎁</div>
+        <div>
+            <h3 class="font-bold text-sm text-gray-200">বোনাস কোড ক্লেইম</h3>
+            <p class="text-[10px] text-gray-400 mt-0.5">কোড লিখে সাবমিট করুন • <span class="text-green-400 font-bold">+50 Coins</span></p>
+        </div>
+    </div>
+
+    <!-- ইনপুট এবং সাবমিট বাটন -->
+    <div class="flex items-center gap-2 mb-5">
+        <input 
+            type="text" 
+            id="promo-input" 
+            placeholder="এখানে কোড লিখুন" 
+            class="w-full bg-black/50 border border-gray-600 text-white text-sm px-4 py-3 rounded-xl focus:outline-none focus:border-green-500 uppercase transition-all"
+        >
+        <button 
+            onclick="submitPromoCode()" 
+            class="bg-green-600 hover:bg-green-700 text-white font-black px-6 py-3 rounded-xl text-xs transition shadow-lg shadow-green-900/30"
+        >
+            সাবমিট
+        </button>
+    </div>
+
+    <!-- ওয়েবসাইট ভিজিট বাটন -->
+    <a href="https://promo-code-f1sq.vercel.app" target="_blank" 
+       class="relative flex items-center justify-center gap-2 w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-3.5 rounded-xl text-xs transition-all shadow-md group">
+        <span class="absolute inset-0 rounded-xl animate-ping bg-blue-500 opacity-20"></span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+        ওয়েবসাইটে যান এবং কোড সংগ্রহ করুন
+    </a>
+
+    <!-- মেসেজ -->
+    <p id="promo-result" class="text-center text-xs mt-4 font-medium h-4"></p>
+</div>
+</div>
+
+<script>
+function submitPromoCode() {
+    const inputField = document.getElementById('promo-input');
+    const resultMsg = document.getElementById('promo-result');
+    
+    // আপনার প্রমো কোডটি এখানে দিন
+    const myPromoCode = "SHIHAB"; 
+    
+    // প্রতিদিন একবার রিডিম করার লিমিট
+    const today = new Date().toLocaleDateString();
+    const lastRedeemDate = localStorage.getItem('lastPromoDate');
+    
+    if (lastRedeemDate === today) {
+        resultMsg.innerText = "⚠️ আপনি আজ ইতিমধ্যেই বোনাস নিয়েছেন!";
+        resultMsg.style.color = "#fbbf24";
+        return;
+    }
+
+    if (!inputField.value) {
+        resultMsg.innerText = "কোডটি লিখুন!";
+        resultMsg.style.color = "#f87171";
+        return;
+    }
+
+    // কোড যাচাইকরণ
+    if (inputField.value.trim().toUpperCase() === myPromoCode) {
+        resultMsg.innerText = "🎉 অভিনন্দন! ৫০ কয়েন যোগ হয়েছে।";
+        resultMsg.style.color = "#4ade80";
+        
+        // --- পয়েন্ট অ্যাড করার মূল জায়গা ---
+        // যদি আপনার অ্যাপের ফাংশনের নাম অন্য হয় (যেমন: addCoins), তবে সেটি এখানে লিখুন
+        if (typeof updateCoins === 'function') {
+            updateCoins(50); 
+        } else {
+            console.log("পয়েন্ট যোগ হয়েছে: ৫০ (ফাংশন পাওয়া যায়নি)");
+        }
+        
+        // তারিখ সেভ করা
+        localStorage.setItem('lastPromoDate', today);
+        inputField.value = '';
+    } else {
+        resultMsg.innerText = "❌ ভুল কোড!";
+        resultMsg.style.color = "#f87171";
+    }
+}
+</script>
+
 
             <!-- Telegram Channel Task -->
             <div class="card-bg p-4 rounded-2xl flex items-center justify-between">
@@ -300,7 +390,7 @@
                 <div class="w-11 h-11 bg-sky-500/10 text-sky-400 rounded-xl flex items-center justify-center text-xl">📢</div>
                 <div>
                   <h3 class="font-bold text-sm text-gray-200">টেলিগ্রাম চ্যানেলে জয়েন</h3>
-                  <p class="text-[10px] text-gray-400 mt-0.5">সব অফিশিয়াল আপডেট • <span class="text-sky-400 font-bold">+30 Coins</span></p>
+                  <p class="text-[10px] text-gray-400 mt-0.5">সব অফিশিয়াল আপডেট • <span class="text-sky-400 font-bold">+Bost</span></p>
                 </div>
               </div>
               <button id="task-btn-telegram" class="bg-sky-500 hover:bg-sky-600 text-white font-black px-5 py-2.5 rounded-xl text-xs transition shadow-md" onclick="visitSocialTask('telegram', 'https://t.me/rewordnest')">Join</button>
@@ -312,7 +402,7 @@
                 <div class="w-11 h-11 bg-sky-600/10 text-sky-400 rounded-xl flex items-center justify-center text-xl">💬</div>
                 <div>
                   <h3 class="font-bold text-sm text-gray-200">সাপোর্ট গ্রুপে জয়েন</h3>
-                  <p class="text-[10px] text-gray-400 mt-0.5">যেকোনো সমস্যার সমাধান • <span class="text-sky-400 font-bold">+30 Coins</span></p>
+                  <p class="text-[10px] text-gray-400 mt-0.5">যেকোনো সমস্যার সমাধান • <span class="text-sky-400 font-bold">+Bost</span></p>
                 </div>
               </div>
               <button id="task-btn-support" class="bg-sky-600 hover:bg-sky-700 text-white font-black px-5 py-2.5 rounded-xl text-xs transition" onclick="visitSocialTask('support', 'https://t.me/suportgroupnest')">Join</button>
@@ -324,7 +414,7 @@
                 <div class="w-11 h-11 bg-red-500/10 text-red-500 rounded-xl flex items-center justify-center text-xl">📺</div>
                 <div>
                   <h3 class="font-bold text-sm text-gray-200">চ্যানেল সাবস্ক্রাইব করুন</h3>
-                  <p class="text-[10px] text-gray-400 mt-0.5">Income Guide BD • <span class="text-red-400 font-bold">+30 Coins</span></p>
+                  <p class="text-[10px] text-gray-400 mt-0.5">Income Guide BD • <span class="text-red-400 font-bold">+Bost</span></p>
                 </div>
               </div>
               <button id="task-btn-youtube" class="bg-red-600 hover:bg-red-700 text-white font-black px-5 py-2.5 rounded-xl text-xs transition" onclick="visitSocialTask('youtube', 'https://www.youtube.com/@IncomeGuide_BD')">Subscribe</button>
@@ -336,7 +426,7 @@
                 <div class="w-11 h-11 bg-blue-800/10 text-blue-500 rounded-xl flex items-center justify-center text-xl">👍</div>
                 <div>
                   <h3 class="font-bold text-sm text-gray-200">ফেসবুক পেজ ফলো করুন</h3>
-                  <p class="text-[10px] text-gray-400 mt-0.5">অফিশিয়াল সোশ্যাল নেটওয়ার্ক • <span class="text-blue-500 font-bold">+30 Coins</span></p>
+                  <p class="text-[10px] text-gray-400 mt-0.5">অফিশিয়াল সোশ্যাল নেটওয়ার্ক • <span class="text-blue-500 font-bold">+Bost</span></p>
                 </div>
               </div>
               <button id="task-btn-facebook" class="bg-blue-800 hover:bg-blue-900 text-white font-black px-5 py-2.5 rounded-xl text-xs transition" onclick="visitSocialTask('facebook', 'https://facebook.com')">Follow</button>
@@ -345,168 +435,87 @@
         </section>
       </div>
 
-          <!-- Promo Code Input Section (Premium Design) -->
-<div class="card-bg p-5 rounded-3xl mt-6 border border-gray-700/50 shadow-xl relative overflow-hidden">
-  
-  <!-- ব্যাকগ্রাউন্ড গ্লো ইফেক্ট (ঐচ্ছিক, সুন্দর দেখানোর জন্য) -->
-  <div class="absolute -inset-0.5 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-3xl blur opacity-30"></div>
 
-  <div class="relative flex items-center justify-between">
-    <div class="flex items-center space-x-4">
-      <!-- আইকন -->
-      <div class="w-14 h-14 bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-2xl flex items-center justify-center text-2xl shadow-inner">
-        🎁
-      </div>
-      <!-- টেক্সট -->
-      <div>
-        <h3 class="font-extrabold text-base text-gray-100 tracking-wide">ডেইলি বোনাস কোড</h3>
-        <p class="text-xs text-gray-400 mt-1">নিচে কোডটি বসান বা আমাদের সাইট থেকে সংগ্রহ করুন</p>
-        <!-- কত কয়েন পাবেন তা এখানে সুন্দর করে দেখানো হলো -->
-        <div class="mt-2 inline-flex items-center bg-gray-900 px-2.5 py-0.5 rounded-full border border-gray-700">
-            <span class="relative flex h-2 w-2 mr-1.5">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-            </span>
-            <span class="text-blue-400 font-bold text-[11px]">সর্বোচ্চ ৫০ কয়েন</span>
+     <!-- 🟢 2. Wallet Page Premium Banking Design -->
+<div id="wallet-page" class="p-4 space-y-6 sub-page">
+    <h2 class="text-xl font-extrabold text-center tracking-tight text-white flex items-center justify-center gap-2">
+        <i data-lucide="shield-check" class="w-5 h-5 text-orange-500"></i> নিরাপদ উইথড্রয়াল সিস্টেম
+    </h2>
+    
+    <div class="card-bg p-6 rounded-3xl border border-white/5 shadow-2xl relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(249,115,22,0.06),transparent)] pointer-events-none"></div>
+        
+        <!-- ব্যালেন্স এবং স্ট্যাটাস -->
+        <div class="flex justify-between items-start mb-6">
+            <div>
+                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1.5 opacity-80">উত্তোলনযোগ্য ব্যালেন্স</p>
+                <div class="flex items-baseline gap-2">
+                    <span id="wallet-coin-balance" class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-orange-400">0</span>
+                    <span class="text-xs text-orange-400/80 font-bold uppercase tracking-wider">Coins</span>
+                </div>
+            </div>
+            <!-- স্ট্যাটাস ব্যাজ -->
+            <div id="status-badge" class="px-3 py-1 rounded-lg bg-red-500/10 border border-red-500/20">
+                <span id="account-status-text" class="text-[10px] font-black text-red-500 uppercase">Unverified ❌</span>
+            </div>
         </div>
-      </div>
+        
+        <!-- ভেরিফিকেশন বাটন (যদি আনভেরিফাইড হয়) -->
+        <button id="verify-action-btn" onclick="handleVerification()" class="w-full mb-6 py-3 rounded-2xl bg-orange-500/10 border border-orange-500/20 text-orange-500 text-xs font-bold uppercase tracking-widest hover:bg-orange-500/20 transition-all">
+            ৳ ৫০ দিয়ে একাউন্ট ভেরিফাই করুন
+        </button>
+
+        <div class="space-y-4 relative z-10">
+            <div>
+                <label class="block text-[10px] font-bold text-gray-400 mb-2 tracking-wide uppercase">কয়েন পরিমাণ</label>
+                <input id="withdraw-amount" type="number" placeholder="যেমন: 5000" class="w-full p-4 rounded-2xl input-field text-sm font-semibold tracking-wide">
+            </div>
+            <div>
+                <label class="block text-[10px] font-bold text-gray-400 mb-2 tracking-wide uppercase">পেমেন্ট মেথড</label>
+                <select id="withdraw-method" class="w-full p-4 rounded-2xl input-field text-sm font-bold bg-slate-900 border border-white/10 text-white cursor-pointer focus:border-orange-500">
+                    <option value="Bkash">Bkash Personal 🚀</option>
+                    <option value="Nagad">Nagad Personal 🔥</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-[10px] font-bold text-gray-400 mb-2 tracking-wide uppercase">রিসিভার নম্বর</label>
+                <input id="payment-number" type="number" placeholder="01XXXXXXXXX" class="w-full p-4 rounded-2xl input-field text-sm font-bold font-mono tracking-widest">
+            </div>
+        </div>
+        
+        <button id="withdraw-btn" onclick="processWithdraw()" class="w-full p-4 rounded-2xl btn-accent mt-6 text-sm font-black tracking-wider uppercase">উইথড্র রিকোয়েস্ট পাঠান</button>
     </div>
-  </div>
-
-  <!-- ইনপুট ফিল্ড এবং বাটন সেকশন -->
-  <div class="relative mt-5 bg-gray-900/60 p-3 rounded-2xl border border-gray-700">
-    <div class="flex items-center gap-3">
-      <!-- ইনপুট ফিল্ড -->
-      <input 
-        type="text" 
-        id="promo-input" 
-        placeholder="এখানে কোড লিখুন (যেমন: NEST100)" 
-        class="w-full bg-transparent text-white placeholder-gray-500 text-sm font-medium px-2 focus:outline-none"
-        style="text-transform: uppercase;" /* ইউজার ছোট হাতে লিখলেও বড় দেখাবে */
-      >
-      <!-- রিডিম বাটন (গ্লোয়িং স্টাইল) -->
-      <button 
-        id="task-btn-promo" 
-        class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-extrabold px-6 py-3 rounded-xl text-xs shadow-md hover:shadow-blue-500/30 transition-all duration-300 flex items-center gap-1.5" 
-        onclick="checkPromoCode()"
-      >
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
-        রিডিম করুন
-      </button>
-    </div>
-  </div>
-
-  <!-- ওয়েবসাইট ভিজিট বাটন (ডিজাইন ঠিক রেখে নতুন সংযোজন) -->
-  <div class="relative mt-3">
-    <a 
-      href="YOUR_WEBSITE_LINK_HERE" 
-      target="_blank" 
-      class="flex items-center justify-center gap-2 w-full bg-gray-900/40 hover:bg-gray-900/80 text-gray-300 font-bold py-3 rounded-2xl text-xs transition border border-gray-700/70 hover:border-gray-600 shadow-md"
-    >
-      <svg class="w-4 h-4 text-blue-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
-      </svg>
-      ওয়েবসাইট থেকে প্রমো কোডটি সংগ্রহ করুন
-    </a>
-  </div>
-  
-  <!-- মেসেজ দেখানোর জায়গা -->
-  <p id="promo-result" class="text-center text-xs mt-3 font-medium h-4"></p>
-
 </div>
 
-<!-- জাভাস্ক্রিপ্ট লজিক -->
 <script>
-async function checkPromoCode() {
-    const inputField = document.getElementById('promo-input');
-    const input = inputField.value.trim().toUpperCase();
-    const resultMsg = document.getElementById('promo-result');
-    const redeemBtn = document.getElementById('task-btn-promo');
-    
-    if(!input) {
-        resultMsg.innerText = "অনুগ্রহ করে কোডটি লিখুন।";
-        resultMsg.style.color = "#f87171";
+let isVerified = false;
+
+function handleVerification() {
+    const confirmPayment = confirm("আপনি কি ৫০ টাকা দিয়ে আপনার একাউন্টটি আজীবনের জন্য ভেরিফাই করতে চান?");
+    if (confirmPayment) {
+        // এখানে আপনার পেমেন্ট গেটওয়ে লজিক বসবে
+        isVerified = true;
+        
+        // UI আপডেট
+        document.getElementById('account-status-text').innerText = "Verified ✅";
+        document.getElementById('account-status-text').className = "text-[10px] font-black text-green-500 uppercase";
+        document.getElementById('status-badge').className = "px-3 py-1 rounded-lg bg-green-500/10 border border-green-500/20";
+        document.getElementById('verify-action-btn').style.display = "none";
+        
+        alert("অভিনন্দন! আপনার একাউন্ট ভেরিফাই হয়েছে। এখন আপনি টাকা তুলতে পারবেন।");
+    }
+}
+
+function processWithdraw() {
+    if (!isVerified) {
+        alert("⚠️ দুঃখিত! টাকা তোলার জন্য আগে একাউন্ট ভেরিফাই করা বাধ্যতামূলক।");
         return;
     }
-
-    redeemBtn.innerHTML = '<svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> চেক হচ্ছে...';
-    redeemBtn.disabled = true;
-
-    const rawLink = "YOUR_PASTEBIN_RAW_LINK_HERE"; 
-
-    try {
-        const response = await fetch(rawLink);
-        if (!response.ok) throw new Error('ফেইল্ড');
-        const dailyCode = await response.text();
-
-        if (input === dailyCode.trim().toUpperCase()) {
-            resultMsg.innerText = "🎉 অভিনন্দন! আপনি ৫০ কয়েন সফলভাবে পেয়েছেন।";
-            resultMsg.style.color = "#4ade80";
-            inputField.value = '';
-        } else {
-            resultMsg.innerText = "❌ দুঃখিত, কোডটি ভুল অথবা মেয়াদ শেষ!";
-            resultMsg.style.color = "#f87171";
-        }
-    } catch (error) {
-        resultMsg.innerText = "⚠️ ইন্টারনেট সংযোগ বিচ্ছিন্ন অথবা সার্ভার ত্রুটি।";
-        resultMsg.style.color = "#fbbf24";
-    } finally {
-        redeemBtn.innerHTML = '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg> রিডিম করুন';
-        redeemBtn.disabled = false;
-    }
+    // উইথড্র করার মূল লজিক এখানে লিখুন
+    alert("আপনার উইথড্র রিকোয়েস্ট সফলভাবে জমা হয়েছে!");
 }
 </script>
 
-
-
-      <!-- 🟢 2. Wallet Page Premium Banking Design -->
-      <div id="wallet-page" class="p-4 space-y-6 sub-page">
-        <h2 class="text-xl font-extrabold text-center tracking-tight text-white flex items-center justify-center gap-2">
-          <i data-lucide="shield-check" class="w-5 h-5 text-orange-500"></i> নিরাপদ উইথড্রয়াল সিস্টেম
-        </h2>
-        
-        <div class="card-bg p-6 rounded-3xl border border-white/5 shadow-2xl relative overflow-hidden">
-          <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(249,115,22,0.06),transparent)] pointer-events-none"></div>
-          
-          <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1.5 opacity-80">উত্তোলনযোগ্য ব্যালেন্স</p>
-          <div class="flex items-baseline gap-2 mb-6">
-            <span id="wallet-coin-balance" class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-orange-400">0</span>
-            <span class="text-xs text-orange-400/80 font-bold uppercase tracking-wider">Coins</span>
-          </div>
-          
-          <div class="space-y-4 relative z-10">
-            <div>
-              <label class="block text-[10px] font-bold text-gray-400 mb-2 tracking-wide uppercase">কয়েন পরিমাণ (Coins Amount)</label>
-              <input id="withdraw-amount" type="number" placeholder="যেমন: 5000" class="w-full p-4 rounded-2xl input-field text-sm font-semibold tracking-wide">
-            </div>
-            <div>
-              <label class="block text-[10px] font-bold text-gray-400 mb-2 tracking-wide uppercase">পেমেন্ট মেথড (Gateway)</label>
-              <select id="withdraw-method" class="w-full p-4 rounded-2xl input-field text-sm font-bold bg-slate-900 border border-white/10 text-white cursor-pointer focus:border-orange-500">
-                <option value="Bkash">Bkash Personal 🚀</option>
-                <option value="Nagad">Nagad Personal 🔥</option>
-                <option value="Rocket">Rocket Personal ⚡</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-[10px] font-bold text-gray-400 mb-2 tracking-wide uppercase">রিসিভার অ্যাকাউন্ট নম্বর</label>
-              <input id="payment-number" type="number" placeholder="01XXXXXXXXX" class="w-full p-4 rounded-2xl input-field text-sm font-bold font-mono tracking-widest">
-            </div>
-          </div>
-          
-          <button id="withdraw-btn" class="w-full p-4 rounded-2xl btn-accent mt-6 text-sm font-black tracking-wider uppercase">উইথড্র রিকোয়েস্ট পাঠান</button>
-          
-          <div class="text-[10px] text-orange-400 font-extrabold mt-4 text-center tracking-widest bg-orange-500/5 py-3 rounded-2xl border border-orange-500/10" id="min-withdrawal-info">
-             🛡️ সর্বনিম্ন উত্তোলন সীমা: ৫০০০ কয়েন
-          </div>
-        </div>
-
-        <div>
-          <h3 class="font-extrabold text-xs tracking-widest text-gray-400 mb-3.5 uppercase flex items-center gap-2 opacity-90">
-             <i data-lucide="activity" class="w-4 h-4 text-orange-500 animate-pulse"></i> লাইভ ট্রানজেকশন হিস্ট্রি
-          </h3>
-          <div id="withdrawal-history-list" class="space-y-3"></div>
-        </div>
-      </div>
 
       <!-- 🟢 3. Refer Page (Premium Glow Design) -->
       <div id="refer-page" class="p-4 space-y-6 sub-page">
