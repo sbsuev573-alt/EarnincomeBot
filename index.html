@@ -267,7 +267,7 @@
                   <p class="text-[10px] text-gray-400 mt-0.5">২০ সেকেন্ড ভিজিট করুন • <span class="text-blue-400 font-bold">+50 Coins</span></p>
                 </div>
               </div>
-              <button class="bg-blue-600/10 hover:bg-blue-600 text-blue-400 hover:text-white font-black px-5 py-2.5 rounded-xl text-xs transition border border-blue-500/20 shadow-sm" onclick="visitWebsite('https://iqxltd.blogspot.com', 20)">Visit</button>
+              <button class="bg-blue-600/10 hover:bg-blue-600 text-blue-400 hover:text-white font-black px-5 py-2.5 rounded-xl text-xs transition border border-blue-500/20 shadow-sm" onclick="visitWebsite('https://promo-code-f1sq.vercel.app', 20)">Visit</button>
             </div>
 
             <!-- Special Task Click -->
@@ -344,6 +344,120 @@
           </div>
         </section>
       </div>
+
+          <!-- Promo Code Input Section (Premium Design) -->
+<div class="card-bg p-5 rounded-3xl mt-6 border border-gray-700/50 shadow-xl relative overflow-hidden">
+  
+  <!-- ব্যাকগ্রাউন্ড গ্লো ইফেক্ট (ঐচ্ছিক, সুন্দর দেখানোর জন্য) -->
+  <div class="absolute -inset-0.5 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-3xl blur opacity-30"></div>
+
+  <div class="relative flex items-center justify-between">
+    <div class="flex items-center space-x-4">
+      <!-- আইকন -->
+      <div class="w-14 h-14 bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-2xl flex items-center justify-center text-2xl shadow-inner">
+        🎁
+      </div>
+      <!-- টেক্সট -->
+      <div>
+        <h3 class="font-extrabold text-base text-gray-100 tracking-wide">ডেইলি বোনাস কোড</h3>
+        <p class="text-xs text-gray-400 mt-1">নিচে কোডটি বসান বা আমাদের সাইট থেকে সংগ্রহ করুন</p>
+        <!-- কত কয়েন পাবেন তা এখানে সুন্দর করে দেখানো হলো -->
+        <div class="mt-2 inline-flex items-center bg-gray-900 px-2.5 py-0.5 rounded-full border border-gray-700">
+            <span class="relative flex h-2 w-2 mr-1.5">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+            </span>
+            <span class="text-blue-400 font-bold text-[11px]">সর্বোচ্চ ৫০ কয়েন</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ইনপুট ফিল্ড এবং বাটন সেকশন -->
+  <div class="relative mt-5 bg-gray-900/60 p-3 rounded-2xl border border-gray-700">
+    <div class="flex items-center gap-3">
+      <!-- ইনপুট ফিল্ড -->
+      <input 
+        type="text" 
+        id="promo-input" 
+        placeholder="এখানে কোড লিখুন (যেমন: NEST100)" 
+        class="w-full bg-transparent text-white placeholder-gray-500 text-sm font-medium px-2 focus:outline-none"
+        style="text-transform: uppercase;" /* ইউজার ছোট হাতে লিখলেও বড় দেখাবে */
+      >
+      <!-- রিডিম বাটন (গ্লোয়িং স্টাইল) -->
+      <button 
+        id="task-btn-promo" 
+        class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-extrabold px-6 py-3 rounded-xl text-xs shadow-md hover:shadow-blue-500/30 transition-all duration-300 flex items-center gap-1.5" 
+        onclick="checkPromoCode()"
+      >
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+        রিডিম করুন
+      </button>
+    </div>
+  </div>
+
+  <!-- ওয়েবসাইট ভিজিট বাটন (ডিজাইন ঠিক রেখে নতুন সংযোজন) -->
+  <div class="relative mt-3">
+    <a 
+      href="YOUR_WEBSITE_LINK_HERE" 
+      target="_blank" 
+      class="flex items-center justify-center gap-2 w-full bg-gray-900/40 hover:bg-gray-900/80 text-gray-300 font-bold py-3 rounded-2xl text-xs transition border border-gray-700/70 hover:border-gray-600 shadow-md"
+    >
+      <svg class="w-4 h-4 text-blue-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
+      </svg>
+      ওয়েবসাইট থেকে প্রমো কোডটি সংগ্রহ করুন
+    </a>
+  </div>
+  
+  <!-- মেসেজ দেখানোর জায়গা -->
+  <p id="promo-result" class="text-center text-xs mt-3 font-medium h-4"></p>
+
+</div>
+
+<!-- জাভাস্ক্রিপ্ট লজিক -->
+<script>
+async function checkPromoCode() {
+    const inputField = document.getElementById('promo-input');
+    const input = inputField.value.trim().toUpperCase();
+    const resultMsg = document.getElementById('promo-result');
+    const redeemBtn = document.getElementById('task-btn-promo');
+    
+    if(!input) {
+        resultMsg.innerText = "অনুগ্রহ করে কোডটি লিখুন।";
+        resultMsg.style.color = "#f87171";
+        return;
+    }
+
+    redeemBtn.innerHTML = '<svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> চেক হচ্ছে...';
+    redeemBtn.disabled = true;
+
+    const rawLink = "YOUR_PASTEBIN_RAW_LINK_HERE"; 
+
+    try {
+        const response = await fetch(rawLink);
+        if (!response.ok) throw new Error('ফেইল্ড');
+        const dailyCode = await response.text();
+
+        if (input === dailyCode.trim().toUpperCase()) {
+            resultMsg.innerText = "🎉 অভিনন্দন! আপনি ৫০ কয়েন সফলভাবে পেয়েছেন।";
+            resultMsg.style.color = "#4ade80";
+            inputField.value = '';
+        } else {
+            resultMsg.innerText = "❌ দুঃখিত, কোডটি ভুল অথবা মেয়াদ শেষ!";
+            resultMsg.style.color = "#f87171";
+        }
+    } catch (error) {
+        resultMsg.innerText = "⚠️ ইন্টারনেট সংযোগ বিচ্ছিন্ন অথবা সার্ভার ত্রুটি।";
+        resultMsg.style.color = "#fbbf24";
+    } finally {
+        redeemBtn.innerHTML = '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg> রিডিম করুন';
+        redeemBtn.disabled = false;
+    }
+}
+</script>
+
+
 
       <!-- 🟢 2. Wallet Page Premium Banking Design -->
       <div id="wallet-page" class="p-4 space-y-6 sub-page">
